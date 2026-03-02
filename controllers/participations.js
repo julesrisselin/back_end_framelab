@@ -33,7 +33,14 @@ export async function getParticipationByFilter(req, resp) {
 
 export async function subParticipations(req, resp) {
     const filepath = req.file.path.substr(6);
-    const data = await participationsModel.subParticipations(req.body.user_id ,req.body.id_challenge, filepath)
+    try {
+        const data = await participationsModel.subParticipations(req.user.id ,req.body.id_challenge, filepath)
+    } catch (error) {
+        return resp.json({
+            success: false,
+            message: `Vous avez déjà soumis une participation pour ce challenge`
+        })
+    }
     resp.json({
         success: true,
         message: `Participations bien ajouté.`

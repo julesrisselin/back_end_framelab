@@ -31,7 +31,8 @@ export async function getUserById(req, resp) {
 }
 
 export async function updateUserInfos(req, resp) {
-  const data = await userModel.updateInfos(req.user.id, req.params.id, req.body.email, req.body.name, req.body.first_name)
+  const user_id = req.query.user_id.split("=");
+  const data = await userModel.updateInfos(user_id[1], req.body.email, req.body.name, req.body.first_name)
   resp.json({
     success: true,
     message: `Vos données ont bien été modifiées.`

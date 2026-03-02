@@ -6,7 +6,7 @@ export async function authentificationUser(req, resp) {
     const user = await userModel.getUserByMail(req.body.email)
     const password_match = await bcrypt.compare(req.body.password, user.password)
     if (user == undefined || !password_match) {
-        resp.json({
+        resp.status(401).json({
             success: false,
             message: "Email ou mot de passe incorrect"
         })
@@ -44,7 +44,6 @@ export async function authByToken(req, resp, next) {
 }
 
 export async function logOutUser(req, resp) {
-    console.log(req.cookies.token);
     resp.clearCookie('token');
     resp.json({
         message: "Le token a bien été supprimé"

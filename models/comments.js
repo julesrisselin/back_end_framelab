@@ -5,7 +5,7 @@ export async function getAllComments() {
     return row;
 }
 
-export async function getCommentsById(id_part) {
+export async function getCommentsByIdPart(id_part) {
     const row = db.getall('SELECT * FROM comments WHERE id_participations = ?', [id_part])
     return row;
 }

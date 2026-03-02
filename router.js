@@ -32,7 +32,7 @@ router.delete("/participations/:id",authentificationController.authByToken, auth
 
 router.get("/comments", commentsController.getAllComments);
 router.post("/comments", authentificationController.authByToken, commentsController.subComments);
-router.get("/comments/:id", commentsController.getCommentsById);
+router.get("/comments/:id", commentsController.getCommentsByIdPart);
 router.put("/comments/:id", authentificationController.authByToken, authentificationController.authAdmin,commentsController.moderateComments);
 
 // Pour les votes

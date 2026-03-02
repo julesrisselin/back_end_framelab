@@ -8,7 +8,7 @@ export async function getAllComments(req, resp){
         });
 }
 
-export async function getCommentsById(req , resp) {
+export async function getCommentsByIdPart(req , resp) {
     console.log(req.params.id)
     const id_part = req.params.id.split("=");
     const data = await commentsModel.getCommentsById(id_part[1]);
