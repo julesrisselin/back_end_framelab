@@ -10,8 +10,8 @@ export async function getCommentsByIdPart(id_part) {
     return row;
 }
 
-export async function moderateComments(id){
-    const row = db.execute('UPDATE comments SET is_visible = 0 WHERE id = ?', [id])
+export async function moderateComments(is_visible , id){
+    const row = db.execute('UPDATE comments SET is_visible = ? WHERE id = ?', [is_visible , id])
     return row;
 }
 

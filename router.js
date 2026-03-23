@@ -26,18 +26,14 @@ router.post("/participations",authentificationController.authByToken, uploadCont
 
 //faire if pour les requetes de user et date et id challenge
 router.get("/participations", participationsController.getParticipationByFilter);
-router.delete("/participations/:id",authentificationController.authByToken, authentificationController.authAdmin, participationsController.deleteParticipations);
 
 // Pour les commentaires
-
-router.get("/comments", commentsController.getAllComments);
 router.post("/comments", authentificationController.authByToken, commentsController.subComments);
 router.get("/comments/:id", commentsController.getCommentsByIdPart);
-router.put("/comments/:id", authentificationController.authByToken, authentificationController.authAdmin,commentsController.moderateComments);
+router.put("/comments", authentificationController.authByToken, authentificationController.authAdmin,commentsController.moderateComments);
 
 // Pour les votes
 router.post("/votes",authentificationController.authByToken, votesController.subVotes);
-router.get("/votes", votesController.getAllVotes)
 router.get("/votes/:id", votesController.getVotesById)
  
 // Admin testé 
