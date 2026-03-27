@@ -11,7 +11,7 @@ import swaggerDocument from './swagger.json' with { type: "json"};
 const app = express();
 app.use(express.json());
 const corsOption = {
-    origin: "http://localhost:5173",
+    origin: process.env.AUTHORIZED_CLIENT,
     credentials: true
 }
 app.use(cors(corsOption));

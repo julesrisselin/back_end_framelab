@@ -9,7 +9,7 @@ export async function deleteParticipations(req, resp) {
 }
 
 export async function getParticipationByFilter(req, resp) {
-    let result = {} ;
+    let result = {};
     if (req.query.id_challenge) {
         const id_challenge = req.query.id_challenge.split("=");
         result = await participationsModel.getParticipationByChallenge(id_challenge[1]);
@@ -26,14 +26,20 @@ export async function getParticipationByFilter(req, resp) {
     }
     const data = result;
     resp.json({
-        data : data 
+        data: data
     });
 }
 
 export async function subParticipations(req, resp) {
+    if (req.file == undefined) {
+        resp.json({
+            success: false,
+            message: "Mauvais format pour l'upload ",
+        })
+    }
     const filepath = req.file.path.substr(6);
     try {
-        const data = await participationsModel.subParticipations(req.user.id ,req.body.id_challenge, filepath)
+        const data = await participationsModel.subParticipations(req.user.id, req.body.id_challenge, filepath)
     } catch (error) {
         return resp.json({
             success: false,

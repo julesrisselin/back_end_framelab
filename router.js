@@ -12,19 +12,18 @@ const router = Router();
 router.post("/auth/login", authentificationController.authentificationUser);
 router.get("/auth/logout", authentificationController.logOutUser);
 
-
+/* Pour les users */
 router.get("/users/me", authentificationController.authByToken, userController.getCurrent)
 router.post("/users", userController.createUser)
-router.put("/users/:id",authentificationController.authByToken, userController.updateUserInfos);
+router.put("/users", userController.updateFirstConnexion);
 router.get("/users", userController.getUserById);
 
-//Pour le challenge en cours
+//Pour le challenge
 router.get("/challenges/current", challengeController.getCurrentChallenge);
+router.post("/challenges",authentificationController.authByToken, authentificationController.authAdmin, uploadController.upload.single('uploaded_file') , challengeController.subChallenge);
 
 // Pour les participations
-router.post("/participations",authentificationController.authByToken, uploadController.upload.single('uploaded_file_participations'), participationsController.subParticipations);
-
-//faire if pour les requetes de user et date et id challenge
+router.post("/participations",authentificationController.authByToken, uploadController.upload.single('uploaded_file'), participationsController.subParticipations);
 router.get("/participations", participationsController.getParticipationByFilter);
 
 // Pour les commentaires
@@ -35,8 +34,6 @@ router.put("/comments", authentificationController.authByToken, authentification
 // Pour les votes
 router.post("/votes",authentificationController.authByToken, votesController.subVotes);
 router.get("/votes", votesController.getVotesByFilter)
- 
-// Admin testé 
-router.post("/challenges",authentificationController.authByToken, authentificationController.authAdmin, uploadController.upload.single('uploaded_file') , challengeController.subChallenge);
+
 
 export default router;

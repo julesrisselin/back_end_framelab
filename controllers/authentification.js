@@ -5,10 +5,16 @@ import jwt from 'jsonwebtoken';
 export async function authentificationUser(req, resp) {
     const user = await userModel.getUserByMail(req.body.email)
     const password_match = await bcrypt.compare(req.body.password, user.password)
+    console.log(req.body.password, user.password)
     if (user == undefined || !password_match) {
         resp.status(401).json({
             success: false,
             message: "Email ou mot de passe incorrect"
+        })
+    } else if (user.validation == 0){
+        resp.status(401).json({
+            success: false,
+            message: "Compte non activé"
         })
     } else {
         const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
