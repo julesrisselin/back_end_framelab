@@ -1,3 +1,4 @@
+import { urlencoded } from 'express';
 import multer from 'multer';
 
 const storage = multer.diskStorage({
@@ -20,7 +21,7 @@ export const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: {
-        fileSize: 10_000_000,
+        fileSize: 10_000_000_000,
     }
 })
 

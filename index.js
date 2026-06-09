@@ -10,13 +10,36 @@ import path from 'path'
 // Creation du serveur
 // Utilisation de la table de routage dans l’application
 const app = express();
-app.use(express.json());
+
+app.use((req, res, next) => {
+  const contentType = req.headers['content-type'] || '';
+  if (contentType.includes('multipart/form-data')) {
+    return next();
+  }
+  express.json()(req, res, next);
+});
+
+app.use((req, res, next) => {
+  const contentType = req.headers['content-type'] || '';
+  if (contentType.includes('multipart/form-data')) {
+    return next(); // skip body-parser complètement
+  }
+  express.json()(req, res, next);
+});
+
+app.use((req, res, next) => {
+  const contentType = req.headers['content-type'] || '';
+  if (contentType.includes('multipart/form-data')) {
+    return next();
+  }
+  express.urlencoded({ extended: true })(req, res, next);
+});
+
 const corsOption = {
     origin: process.env.AUTHORIZED_CLIENT,
     credentials: true
 }
 app.use(cors(corsOption));
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api", router);
 
